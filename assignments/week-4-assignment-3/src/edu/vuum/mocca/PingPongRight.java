@@ -84,13 +84,17 @@ public class PingPongRight {
              */
 
             // TODO - You fill in here.
-        	for(int loopDone = 1; loopDone <= mMaxLoopIterations; loopDone++)
-        	{
-        		acquire();
-        		System.out.println(mStringToPrint + "(" + loopDone + ")");
-        		release();
+        	try{
+        		for(int loopDone = 1; loopDone <= mMaxLoopIterations; loopDone++)
+        		{
+        			acquire();
+        			System.out.println(mStringToPrint + "(" + loopDone + ")");
+        			release();
+        		}
         	}
-        	mLatch.countDown();
+        	finally{
+        		mLatch.countDown();
+        	}
         }
 
         /**
