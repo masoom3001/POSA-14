@@ -57,23 +57,33 @@ public class AndroidPlatformStrategy extends PlatformStrategy
          * Create a Runnable that's posted to the UI looper thread
          * and appends the outputString to a TextView. 
          */
-        // TODO - You fill in here.
-    	mActivity.get().runOnUiThread(new Runnable() {
-    		public void run(){
-    			mTextViewOutput.append(outputString + '\n');
-    		}
-    	});
+        Activity activity = mActivity.get();
+    	// TODO - You fill in here.
+    	if(activity != null){
+    		activity.runOnUiThread(new Runnable() {
+    			public void run(){
+    				mTextViewOutput.append(outputString + '\n');
+    			}
+    		});
+        }
     }
 
     /** Indicate that a game thread has finished running. */
     public void done()
     {	
-        // TODO - You fill in here.
-    	mActivity.get().runOnUiThread(new Runnable() {
-    		public void run(){
-    			mLatch.countDown();
-    		}
-    	});
+    	Activity activity = mActivity.get();
+    	// TODO - You fill in here.
+    	if(activity != null){
+    		activity.runOnUiThread(new Runnable() {
+    			public void run(){
+    				mLatch.countDown();
+    			}
+    		});
+    	}
+    	else
+    	{
+    		mLatch.countDown();
+    	}
     }
 
     /** Barrier that waits for all the game threads to finish. */
